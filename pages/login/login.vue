@@ -34,8 +34,9 @@
 		},
 		methods: {
 			login() {
+				
 				uni.request({
-					url: "http://localhost:8081/user/login",
+					url: baseUrl+"/user/login",
 					method: "post",
 					data: JSON.stringify({
 						username: this.username,
@@ -57,14 +58,14 @@
 			},
 			register() {
 				uni.request({
-					url: "http://localhost:8081/user/register",
+					url: baseUrl+"/user/register",
 					method: "post",
 					data: JSON.stringify({
 						username: this.username,
-						password: this.password
+						password: this.password,
+						
 					}),
 					success: function(res) {
-
 						uni.showToast({
 							title: res.data.msg + "",
 						});
