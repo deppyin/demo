@@ -1,6 +1,9 @@
 <script>
 	export default {
 		onLaunch: function() {
+			uni.showToast({
+				title: this.$baseUrl + "baseUrl",
+			});
 			var userinfo = uni.getStorageSync('userinfo')
 			if (userinfo) {
 				userinfo = JSON.parse(userinfo)
@@ -21,7 +24,7 @@
 				})
 			}
 			// window.baseUrl='http://47.106.152.0:3000'
-			window.baseUrl='http://localhost:3000'
+			// window.baseUrl='http://localhost:3000'
 		},
 		onShow: function() {
 

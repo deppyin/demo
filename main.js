@@ -13,6 +13,8 @@ Vue.prototype.$store = store
 
 Vue.config.productionTip = false
 
+Vue.prototype.$baseUrl = 'http://47.106.152.0:3000' //'http://localhost:3000'
+
 App.mpType = 'app'
 Vue.use(uView)
 

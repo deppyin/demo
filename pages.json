@@ -51,6 +51,33 @@
             }
             
         }
+        ,{
+            "path" : "pages/Administration/Administration",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/outShop/outShop",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "下架商品",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/userSetPage/userSetPage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "用户信息设置",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "pages/componentsA",

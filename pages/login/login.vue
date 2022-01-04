@@ -34,9 +34,8 @@
 		},
 		methods: {
 			login() {
-				
 				uni.request({
-					url: baseUrl+"/user/login",
+					url: this.$baseUrl+"/user/login",
 					method: "post",
 					data: JSON.stringify({
 						username: this.username,
@@ -57,8 +56,9 @@
 				})
 			},
 			register() {
+				
 				uni.request({
-					url: baseUrl+"/user/register",
+					url: this.$baseUrl+"/user/register",
 					method: "post",
 					data: JSON.stringify({
 						username: this.username,
