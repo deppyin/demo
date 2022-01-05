@@ -10,6 +10,15 @@
 					</view>
 				</view>
 			</view>
+
+			<view class="pay">
+
+				<view v-for="(item, index) in menu" :key="index">
+					<image :src="item.thumb" style="width: 40px;height: 40px;"></image>
+				</view>
+
+			</view>
+
 			<view class="list">
 				<ul>
 					<li class="item" v-for="(item,index) in list" :key="index" @click="navigetTo_fn(item)">
@@ -27,7 +36,8 @@
 			</view>
 
 			<u-popup :show="show" mode="center">
-				<view class="pop">
+				<!-- <view class="pop"> -->
+				<scroll-view class="pop" :scroll-y="true">
 					<view class="popcontent">
 						<view class="title">
 							<u-icon name="close" color="#ccc" size="20" @click="show=false" style="margin-right: 3px">
@@ -63,11 +73,15 @@
 						</view>
 						<view class="upload">
 							商品图片
-							<u-upload :fileList="fileList1" @afterRead="afterRead" multiple :maxCount="1"></u-upload>
+							<u-upload @afterRead="afterRead" multiple :maxCount="1" v-show="fileList1.length<=0">
+							</u-upload>
+							<image v-for="(item,index) in fileList1" :key="index" :src="item" mode=""
+								style="height: 80px;width: 80px;margin-bottom: 10px;"></image>
 						</view>
-						<u-button type="primary" text="提交" style="width: 80%;" @click="submit"></u-button>
+						<u-button type="primary" text="提交" style="width: 80%;" @tap="submit"></u-button>
 					</view>
-				</view>
+				</scroll-view>
+				<!-- </view> -->
 			</u-popup>
 		</view>
 	</view>
@@ -75,6 +89,9 @@
 
 <script>
 	import defaultHeader from "@/static/image/4465b49d9a4d7a60d751d2c15825c9e2.jpeg"
+	import gouwuche from "@/static/image/gouwuche.png"
+	import kabao from "@/static/image/kabao.png"
+
 	export default {
 		data() {
 			return {
@@ -86,6 +103,8 @@
 					name: "商品管理"
 				}, {
 					name: "下架商品"
+				}, {
+					name: "热门商品"
 				}],
 				show: false,
 				shopName: "",
@@ -94,7 +113,14 @@
 				describe: "",
 				price: 0,
 				menuList: [],
-				menuListShow: false
+				menuListShow: false,
+				menu: [{
+						thumb: kabao
+					},
+					{
+						thumb: gouwuche
+					},
+				]
 			};
 		},
 		mounted() {
@@ -102,6 +128,7 @@
 			userinfo = JSON.parse(userinfo)
 			this.userinfo = userinfo
 			this.src = userinfo.head_portrait
+			console.log(this.src)
 		},
 		methods: {
 			afterRead(file, lists, name) {
@@ -124,9 +151,10 @@
 				})
 			},
 			submit() {
+				console.log(11111111111111111111111)
 				var that = this
 				uni.request({
-					url: +"/shop/pushShopList",
+					url: this.$baseUrl + "/shop/pushShopList",
 					method: "post",
 					data: JSON.stringify({
 						id: this.userinfo.id,
@@ -204,6 +232,11 @@
 							url: '/pages/userSetPage/userSetPage'
 						})
 						break;
+					case "热门商品":
+						uni.navigateTo({
+							url: '/pages/hotList/hotList'
+						})
+						break;
 				}
 			}
 		}
@@ -211,6 +244,10 @@
 </script>
 
 <style lang="scss">
+	// * {
+	//    touch-action: none;
+	// }
+
 	uni-page-body {
 		height: 100%;
 	}
@@ -222,6 +259,16 @@
 
 	/deep/ .u-popup__content {
 		border-radius: 10px;
+	}
+
+	.pay {
+		background-color: #fff;
+		margin: 20px 0;
+		display: flex;
+		justify-content: space-around;
+		width: 100%;
+		height: 80px;
+		align-items: center;
 	}
 
 	.pop {
@@ -237,19 +284,19 @@
 			align-items: center;
 			font-size: 15px;
 			color: #000;
-			margin-bottom: 20px;
+			padding-bottom: 20px;
 			width: 100%;
 			overflow: auto;
 
 			.title {
-				width: 100%;
+				width: 300px;
 				height: 40px;
 				display: flex;
 				justify-content: flex-end;
-				position: absolute;
+				position: fixed;
 				background-color: #fff;
 				z-index: 9999;
-				border-radius: 15px;
+				border-radius: 15px
 			}
 
 			.className {
@@ -305,6 +352,8 @@
 			.upload {
 				margin-top: 20px;
 				width: 80%;
+				display: flex;
+				flex-direction: column;
 			}
 		}
 
@@ -317,7 +366,7 @@
 
 		.header {
 			display: flex;
-			height: 150px;
+			height: 170px;
 			background-color: #fff;
 
 			.userinfo {

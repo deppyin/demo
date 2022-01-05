@@ -1,9 +1,9 @@
 <script>
 	export default {
 		onLaunch: function() {
-			uni.showToast({
-				title: this.$baseUrl + "baseUrl",
-			});
+			// uni.showToast({
+			// 	title: this.$baseUrl + "baseUrl",
+			// });
 			var userinfo = uni.getStorageSync('userinfo')
 			if (userinfo) {
 				userinfo = JSON.parse(userinfo)
